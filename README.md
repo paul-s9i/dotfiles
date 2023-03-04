@@ -2,7 +2,7 @@
 
 ## TODO
 
-1. [ ] wezterm wsl
+1. [x] wezterm wsl
 2. [ ] wezterm ubuntu
 3. [ ] WSL bootstrap script
 4. [ ] Ubuntu dev bootstrap script
