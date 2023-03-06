@@ -1,0 +1,60 @@
+alias y="win32yank.exe -i --crlf"
+alias p="win32yank.exe -o --lf"
+
+alias f="run_nvim_fzf" 
+alias fh="run_nvim_fzf_hidden"
+alias fhf="search_home"
+
+alias v="wslview"
+
+alias r="go_git_root"
+
+alias c="find_open_code"
+alias cn="find_open_new_code"
+
+alias save="save"
+
+go_git_root() {
+    cd $(git rev-parse --show-toplevel);
+}
+
+
+run_nvim_fzf() {
+    cd $(git rev-parse --show-toplevel);
+    F_PATH=`rg --files --follow --no-ignore-vcs -g "!{node_modules}" | fzf`;
+    cd ${F_PATH%/*};
+    nvim ${F_PATH##*/};
+  }
+
+find_open_code() {
+    cd $(git rev-parse --show-toplevel);
+    F_PATH=`rg --files --follow --no-ignore-vcs -g "!{node_modules}" | fzf`;
+    cd ${F_PATH%/*};
+    code -r $(git rev-parse --show-toplevel) ${F_PATH##*/};
+  }
+
+find_open_new_code() {
+    cd $(git rev-parse --show-toplevel);
+    F_PATH=`rg --files --follow --no-ignore-vcs -g "!{node_modules}" | fzf`;
+    cd ${F_PATH%/*};
+    code  -n $(git rev-parse --show-toplevel) ${F_PATH##*/};
+  }
+
+run_nvim_fzf_hidden() {
+    cd $(git rev-parse --show-toplevel);
+    F_PATH=`rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules}" | fzf`;
+    cd ${F_PATH%/*};
+    nvim ${F_PATH##*/};
+  }
+
+search_home() {
+    cd ~;
+    S_PATH=`rg --files --follow --no-ignore-vcs -g "!{node_modules}" | fzf`;
+    cd ${S_PATH%/*};
+    # pwd
+  }
+
+save() {
+    cd ~;
+    tar -cvzf /mnt/c/repos.tar.gz ~/repos/;
+}
